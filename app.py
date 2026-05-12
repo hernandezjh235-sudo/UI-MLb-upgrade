@@ -19,7 +19,7 @@ import streamlit as st
 from math import exp, factorial
 from datetime import datetime, timedelta
 
-APP_VERSION = "v10.8.3 FULL PRO UI + RAW DEBUG + HIT RATE"
+APP_VERSION = "v10.8.5 TRUE FULL PAGE PRO UI"
 
 try:
     import pytz
@@ -298,6 +298,12 @@ h1,h2,h3 {color:#fff;}
 .ui-bar{width:16px;background:#35ef4f;border-radius:2px;box-shadow:0 0 10px rgba(53,239,79,.18);}
 @media (max-width: 1000px){.ui-hero{flex-direction:column;align-items:flex-start;gap:14px;}.ui-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.ui-main-cols{grid-template-columns:1fr;}.ui-stat{border-right:0;border-bottom:1px solid rgba(150,170,190,.12);padding-bottom:12px;}.ui-footer{grid-template-columns:repeat(2,minmax(0,1fr));}}
 
+
+
+/* v10.8.5 true full-page pro mode */
+.block-container {max-width: 1500px !important; padding-top: 1rem !important;}
+.pro-card {border-radius: 0 !important;}
+.pro-shell {width:100% !important;}
 
 /* =========================
    v10.8.3 FULL PRO UI CSS
@@ -582,11 +588,11 @@ def ui_signal_class(signal_text):
     return "signal-muted"
 
 def ui_pick_signal(row):
-    sig = row.get("Signal") or row.get("signal") or row.get("Grade") or row.get("grade") or row.get("Confidence") or row.get("confidence")
+    sig = row.get("signal") or row.get("Signal") or row.get("Grade") or row.get("grade") or row.get("Confidence") or row.get("confidence")
     if sig:
         return str(sig)
-    prob = safe_float(row.get("Over Probability", row.get("over_prob", row.get("prob"))))
-    edge = safe_float(row.get("Edge", row.get("edge")))
+    prob = ui_probability(row)
+    edge = ui_edge(row)
     if prob is not None and prob >= 0.66 and (edge is None or edge >= 0.75):
         return "🔥 STRONG OVER"
     if prob is not None and prob >= 0.58:
@@ -655,7 +661,7 @@ def render_ui_pick_card(row, idx=0):
     signal = ui_pick_signal(row)
     sig_class = ui_signal_class(signal)
     k_rate = safe_float(row.get("pitcher_k", row.get("Pitcher K%", row.get("K%"))))
-    opp_k = safe_float(row.get("lineup_k", row.get("Opp K%", row.get("Opponent K%"))))
+    opp_k = safe_float(row.get("opp_k", row.get("lineup_k", row.get("Opp K%", row.get("Opponent K%")))))
     bf = safe_float(row.get("expected_bf", row.get("Expected BF")))
     kelly = safe_float(row.get("kelly", row.get("Kelly %")))
     bet_size = safe_float(row.get("bet_size", row.get("Bet Size")))
@@ -907,7 +913,7 @@ def ui_get(row, *keys, default=None):
     return default
 
 def ui_probability(row):
-    return safe_float(ui_get(row, "over_prob", "prob", "Probability", "Over Probability", "over_probability"))
+    return safe_float(ui_get(row, "fair_probability", "over_probability", "over_prob", "prob", "Probability", "Over Probability"))
 
 def ui_projection(row):
     return safe_float(ui_get(row, "projection", "Projection", "Projected Ks", "Projected K"))
@@ -916,7 +922,7 @@ def ui_line(row):
     return safe_float(ui_get(row, "line", "Line", "Prop Line"))
 
 def ui_edge(row):
-    e = safe_float(ui_get(row, "edge", "Edge"))
+    e = safe_float(ui_get(row, "edge_ks", "abs_edge", "edge", "Edge"))
     if e is not None:
         return e
     p = ui_projection(row)
@@ -926,7 +932,7 @@ def ui_edge(row):
     return None
 
 def ui_score(row):
-    return safe_float(ui_get(row, "score", "Score", "data_score", "Data Score"), 0) or 0
+    return safe_float(ui_get(row, "data_score", "score", "Score", "Data Score"), 0) or 0
 
 def ui_pick_sort_key(row):
     return (ui_score(row), ui_edge(row) or 0, ui_probability(row) or 0)
@@ -4012,6 +4018,33 @@ if hide_no_line:
 if only_strong:
     board = [p for p in board if p.get("signal_type") == "good"]
 
+# =========================
+# v10.8.5 TRUE FULL PAGE PRO UI
+# This replaces the old tab/table layout visually.
+# Backend, lines, projections, EV, and pick logic above are unchanged.
+# =========================
+try:
+    st.markdown(f"<div class='small-muted'>{APP_VERSION} | {board_status} | Last refresh: {st.session_state.get('last_refresh_time') or 'Not refreshed this session'} | Last save added: {st.session_state.get('last_saved_count', 0)}</div>", unsafe_allow_html=True)
+    render_full_pro_header(board, bankroll)
+    render_full_pro_board(board, max_cards=18)
+
+    with st.expander("🔎 Raw Prop Debug Table", expanded=False):
+        render_raw_prop_debug_table()
+
+    with st.expander("📊 Hit-Rate Dashboard", expanded=False):
+        render_hit_rate_dashboard()
+
+    with st.expander("📋 Full Data Table", expanded=False):
+        if board:
+            show = pd.DataFrame([{k: v for k, v in p.items() if k not in ["prop_rows", "lineup_rows", "pitch_type_rows", "source_status"]} for p in board])
+            st.dataframe(show, use_container_width=True, hide_index=True)
+        else:
+            st.info("No board data yet. Refresh/sync props first.")
+
+    st.stop()
+except Exception as e:
+    st.warning(f"Full Pro Dashboard failed, falling back to classic layout: {e}")
+
 st.info(f"{APP_VERSION} | {board_status} | Last refresh: {st.session_state.get('last_refresh_time') or 'Not refreshed this session'} | Last save added: {st.session_state.get('last_saved_count', 0)}")
 
 render_kpis(board, bankroll)
@@ -4243,14 +4276,3 @@ except Exception as e:
 
 
 
-# =========================
-# v10.8.3 FULL PRO UI MAIN SECTION
-# =========================
-try:
-    st.markdown('<div class="section-title-pro">Full Pro Dashboard</div>', unsafe_allow_html=True)
-    pro_rows = get_current_board_rows_for_ui()
-    bankroll_value = globals().get("bankroll", globals().get("BANKROLL", 1000))
-    render_full_pro_header(pro_rows, bankroll_value)
-    render_full_pro_board(pro_rows, max_cards=10)
-except Exception as e:
-    st.warning(f"Full Pro Dashboard unavailable: {e}")
