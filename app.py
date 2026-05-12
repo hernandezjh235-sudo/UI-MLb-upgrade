@@ -19,7 +19,7 @@ import streamlit as st
 from math import exp, factorial
 from datetime import datetime, timedelta
 
-APP_VERSION = "v10.8.2 UI REFRESH + RAW DEBUG + HIT RATE"
+APP_VERSION = "v10.8.3 FULL PRO UI + RAW DEBUG + HIT RATE"
 
 try:
     import pytz
@@ -297,6 +297,55 @@ h1,h2,h3 {color:#fff;}
 .ui-bar-wrap{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#d4dde5;}
 .ui-bar{width:16px;background:#35ef4f;border-radius:2px;box-shadow:0 0 10px rgba(53,239,79,.18);}
 @media (max-width: 1000px){.ui-hero{flex-direction:column;align-items:flex-start;gap:14px;}.ui-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.ui-main-cols{grid-template-columns:1fr;}.ui-stat{border-right:0;border-bottom:1px solid rgba(150,170,190,.12);padding-bottom:12px;}.ui-footer{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+
+/* =========================
+   v10.8.3 FULL PRO UI CSS
+   Visual-only; backend unchanged.
+========================= */
+.pro-shell{margin-top:4px;}
+.pro-header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#101923,#0b1118 58%,#071019);border:1px solid rgba(78,118,145,.28);border-radius:18px;padding:25px 30px;margin-bottom:0;box-shadow:0 16px 44px rgba(0,0,0,.35);}
+.pro-title{font-size:36px;font-weight:950;letter-spacing:-.9px;color:#f4f8fb;text-shadow:0 0 14px rgba(255,255,255,.08);}
+.pro-sub{font-size:16px;color:#b9c5cf;margin-top:8px;}
+.pro-bankroll{background:linear-gradient(145deg,#111d28,#0b141d);border:1px solid rgba(96,135,165,.38);border-radius:15px;min-width:190px;padding:16px 18px;}
+.pro-bank-label{font-size:15px;color:#d0d8df;font-weight:800;}
+.pro-bank-value{font-size:28px;font-weight:950;color:#35ef4f;margin-top:5px;}
+.pro-bank-time{font-size:12px;color:#97a4ae;margin-top:5px;}
+.pro-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#0c1219;border:1px solid rgba(100,135,165,.18);border-top:0;overflow:hidden;margin-bottom:16px;}
+.pro-kpi{text-align:center;padding:18px 20px;border-right:1px solid rgba(130,160,185,.16);}
+.pro-kpi:last-child{border-right:0;}
+.pro-kpi span{display:block;color:#b9c3cc;font-size:14px;font-weight:800;}
+.pro-kpi b{display:block;color:#f1f5f8;font-size:25px;margin-top:8px;font-weight:950;}
+.pro-card{background:linear-gradient(180deg,#101922,#0b141c);border-top:1px solid rgba(100,135,165,.26);border-bottom:1px solid rgba(100,135,165,.18);border-left:1px solid rgba(100,135,165,.12);border-right:1px solid rgba(100,135,165,.12);padding:18px 20px;margin:0 0 18px 0;box-shadow:0 12px 30px rgba(0,0,0,.28);}
+.pro-player{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+.pro-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(145deg,#263444,#101822);border:1px solid rgba(120,160,190,.35);display:flex;align-items:center;justify-content:center;color:#e9f0f6;font-weight:950;font-size:22px;}
+.pro-name{font-size:20px;font-weight:900;color:#f6f9fb;}
+.pro-game{font-size:13px;color:#aab6c1;margin-top:3px;}
+.pro-grid{display:grid;grid-template-columns:1.12fr .7fr 1.12fr 1.2fr;gap:18px;border-top:1px solid rgba(150,170,190,.10);padding-top:14px;}
+.pro-cell{border-right:1px solid rgba(150,170,190,.14);min-height:98px;padding-right:16px;}
+.pro-cell:last-child{border-right:0;}
+.pro-cell span,.pro-cell em{display:block;color:#9fabb7;font-size:13px;font-weight:800;font-style:normal;margin-bottom:6px;}
+.pro-cell b{display:block;color:#edf3f8;font-size:30px;line-height:1.05;font-weight:950;}
+.pro-cell strong{display:block;font-size:27px;margin-top:4px;font-weight:950;}
+.pro-progress{height:15px;background:#071017;border-radius:999px;margin-top:12px;overflow:hidden;}
+.pro-progress div{height:100%;background:#35ef4f;border-radius:999px;box-shadow:0 0 16px rgba(53,239,79,.25);}
+.pro-signal{font-size:18px!important;margin-bottom:14px;}
+.pro-money{display:flex;justify-content:space-between;gap:14px;color:#b9c4cf;margin:6px 0;font-size:14px;}
+.pro-money span{margin:0!important;font-size:14px!important;}
+.pro-money b{font-size:14px!important;color:#eef4f8!important;}
+.pro-footer{display:grid;grid-template-columns:.7fr .7fr .9fr 2.2fr;gap:16px;border-top:1px solid rgba(150,170,190,.10);margin-top:14px;padding-top:14px;}
+.pro-footer span{display:block;color:#9fabb7;font-size:12px;font-weight:800;}
+.pro-footer b{display:block;color:#edf3f8;font-size:18px;margin-top:4px;}
+.pro-last{min-width:240px;}
+.pro-bars{display:flex;gap:10px;align-items:flex-end;height:74px;margin-top:2px;}
+.pro-bar-wrap{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#d4dde5;}
+.pro-bar{width:16px;background:#35ef4f;border-radius:2px;box-shadow:0 0 10px rgba(53,239,79,.18);}
+.green-text{color:#35ef4f!important;}
+.orange-text{color:#ff9f1a!important;}
+.signal-green{color:#35ef4f!important;}
+.signal-orange{color:#ff9f1a!important;}
+.signal-muted{color:#c6d0d8!important;}
+@media(max-width:1000px){.pro-header{flex-direction:column;align-items:flex-start;gap:14px}.pro-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.pro-grid{grid-template-columns:1fr}.pro-cell{border-right:0;border-bottom:1px solid rgba(150,170,190,.12);padding-bottom:12px}.pro-footer{grid-template-columns:repeat(2,minmax(0,1fr));}}
 
 </style>
 """, unsafe_allow_html=True)
@@ -828,6 +877,248 @@ def render_hit_rate_dashboard():
 
     st.markdown("#### Recent Graded Picks")
     st.dataframe(df.tail(150).iloc[::-1], use_container_width=True, hide_index=True)
+
+
+
+# =========================
+# v10.8.3 FULL PRO UI HELPERS
+# Visual/reporting only. Does not change lines, projections, EV, or pick logic.
+# =========================
+def get_current_board_rows_for_ui():
+    """Find the active board/pick list without modifying it."""
+    candidates = [
+        globals().get("board"),
+        globals().get("picks"),
+        globals().get("final_board"),
+        globals().get("all_picks"),
+        globals().get("top_picks"),
+        st.session_state.get("board") if hasattr(st, "session_state") else None,
+        st.session_state.get("picks") if hasattr(st, "session_state") else None,
+    ]
+    for c in candidates:
+        if isinstance(c, list) and len(c) > 0 and any(isinstance(x, dict) for x in c):
+            return c
+    return []
+
+def ui_get(row, *keys, default=None):
+    for k in keys:
+        if isinstance(row, dict) and k in row and row.get(k) not in [None, ""]:
+            return row.get(k)
+    return default
+
+def ui_probability(row):
+    return safe_float(ui_get(row, "over_prob", "prob", "Probability", "Over Probability", "over_probability"))
+
+def ui_projection(row):
+    return safe_float(ui_get(row, "projection", "Projection", "Projected Ks", "Projected K"))
+
+def ui_line(row):
+    return safe_float(ui_get(row, "line", "Line", "Prop Line"))
+
+def ui_edge(row):
+    e = safe_float(ui_get(row, "edge", "Edge"))
+    if e is not None:
+        return e
+    p = ui_projection(row)
+    l = ui_line(row)
+    if p is not None and l is not None:
+        return p - l
+    return None
+
+def ui_score(row):
+    return safe_float(ui_get(row, "score", "Score", "data_score", "Data Score"), 0) or 0
+
+def ui_pick_sort_key(row):
+    return (ui_score(row), ui_edge(row) or 0, ui_probability(row) or 0)
+
+def ui_team_text(row):
+    return ui_get(row, "matchup", "Matchup", "Team Matchup", "game", "Game", default="")
+
+def ui_name(row):
+    return ui_get(row, "pitcher", "Pitcher", "player", "Player", "Feed Name", default="Unknown Pitcher")
+
+def ui_hand(row):
+    return ui_get(row, "hand", "Hand", "throws", "Pitch Hand", default="")
+
+def ui_bet_size(row):
+    return safe_float(ui_get(row, "bet_size", "Bet Size", "recommended_bet", "Recommended Bet"), 0) or 0
+
+def ui_kelly(row):
+    k = safe_float(ui_get(row, "kelly", "Kelly", "Kelly %", "kelly_fraction"), 0) or 0
+    return k * 100 if k <= 1 else k
+
+def ui_signal(row):
+    sig = ui_get(row, "Signal", "signal", "Grade", "grade", "Confidence", "confidence")
+    if sig:
+        return str(sig)
+    prob = ui_probability(row)
+    edge = ui_edge(row)
+    if prob is not None and prob >= 0.66 and (edge is None or edge >= 0.75):
+        return "🔥 STRONG OVER"
+    if prob is not None and prob >= 0.58:
+        return "✅ OVER"
+    return "PASS"
+
+def ui_sig_class(sig):
+    s = str(sig or "").lower()
+    if "strong" in s or "elite" in s:
+        return "signal-green"
+    if "over" in s or "play" in s:
+        return "signal-green"
+    if "pass" in s or "no" in s:
+        return "signal-orange"
+    return "signal-muted"
+
+def ui_find_recent_ks(row):
+    for key in ["last_10_ks", "Last 10 Ks", "recent_ks", "Recent Ks", "ks_history"]:
+        vals = row.get(key) if isinstance(row, dict) else None
+        if isinstance(vals, list):
+            return [safe_int(v, 0) or 0 for v in vals[:10]]
+        if isinstance(vals, str):
+            nums = re.findall(r"\d+", vals)
+            if nums:
+                return [int(x) for x in nums[:10]]
+    # Try nested recent log rows
+    logs = row.get("recent_rows") or row.get("recent_logs") or row.get("Recent Logs") if isinstance(row, dict) else None
+    if isinstance(logs, list):
+        out = []
+        for g in logs[:10]:
+            if isinstance(g, dict):
+                out.append(safe_int(g.get("Ks"), 0) or 0)
+        if out:
+            return out
+    return []
+
+def ui_short_num(x, digits=2, default="—"):
+    try:
+        if x is None:
+            return default
+        return f"{float(x):.{digits}f}"
+    except Exception:
+        return default
+
+def ui_short_pct(x, default="—"):
+    try:
+        if x is None:
+            return default
+        f = float(x)
+        if f <= 1:
+            f *= 100
+        return f"{f:.0f}%"
+    except Exception:
+        return default
+
+def render_full_pro_header(rows, bankroll=None):
+    rows = rows if isinstance(rows, list) else []
+    games = len(set([r.get("game_pk") for r in rows if isinstance(r, dict) and r.get("game_pk")])) or "—"
+    pitchers = len(rows) if rows else "—"
+    edges = [ui_edge(r) for r in rows if isinstance(r, dict) and ui_edge(r) is not None]
+    avg_edge = float(np.mean(edges)) if edges else None
+    best = None
+    if rows:
+        try:
+            best = sorted([r for r in rows if isinstance(r, dict)], key=ui_pick_sort_key, reverse=True)[0]
+        except Exception:
+            best = None
+    best_signal = ui_signal(best) if best else "—"
+    bankroll_value = safe_float(bankroll, None)
+    if bankroll_value is None:
+        bankroll_value = 1000
+    st.markdown(f"""
+    <div class="pro-shell">
+      <div class="pro-header">
+        <div>
+          <div class="pro-title">🔥 MLB STRIKEOUT PROP ENGINE</div>
+          <div class="pro-sub">Real Projections | Edge | Kelly Criterion | Simulations</div>
+        </div>
+        <div class="pro-bankroll">
+          <div class="pro-bank-label">Bankroll</div>
+          <div class="pro-bank-value">${bankroll_value:,.2f}</div>
+          <div class="pro-bank-time">Updated: {california_now().strftime('%I:%M %p PT')}</div>
+        </div>
+      </div>
+      <div class="pro-kpis">
+        <div class="pro-kpi"><span>Games Today</span><b>{games}</b></div>
+        <div class="pro-kpi"><span>Pitchers Analyzed</span><b>{pitchers}</b></div>
+        <div class="pro-kpi"><span>Avg Edge</span><b class="green-text">{ui_short_num(avg_edge,2)}</b></div>
+        <div class="pro-kpi"><span>Best Play</span><b class="green-text">{best_signal}</b></div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_full_pro_card(row, rank=1):
+    name = ui_name(row)
+    matchup = ui_team_text(row)
+    hand = ui_hand(row)
+    proj = ui_projection(row)
+    line = ui_line(row)
+    edge = ui_edge(row)
+    prob = ui_probability(row)
+    sig = ui_signal(row)
+    sig_class = ui_sig_class(sig)
+    bet_size = ui_bet_size(row)
+    kelly = ui_kelly(row)
+    k_rate = safe_float(ui_get(row, "pitcher_k", "Pitcher K%", "K%", "k_rate"))
+    opp_k = safe_float(ui_get(row, "lineup_k", "Opp K%", "Opponent K%", "opp_k"))
+    bf = safe_float(ui_get(row, "expected_bf", "Expected BF", "BF"))
+    initials = "".join([p[:1] for p in str(name).split()[:2]]).upper() or "P"
+    ks = ui_find_recent_ks(row)
+    if not ks:
+        ks = [0,0,0,0,0,0,0,0,0,0]
+    max_k = max(max(ks), 1)
+    bars = "".join([f'<div class="pro-bar-wrap"><div class="pro-bar" style="height:{max(14, int((k/max_k)*56))}px"></div><small>{k}</small></div>' for k in ks[:10]])
+    prob_width = min(max((prob or 0) * 100, 0), 100)
+    st.markdown(f"""
+    <div class="pro-card">
+      <div class="pro-player">
+        <div class="pro-avatar">{initials}</div>
+        <div>
+          <div class="pro-name">{name}</div>
+          <div class="pro-game">{matchup}</div>
+          <div class="pro-game">{hand}</div>
+        </div>
+      </div>
+      <div class="pro-grid">
+        <div class="pro-cell">
+          <span>Projection</span>
+          <b class="green-text">{ui_short_num(proj,2)}</b>
+          <em>Edge</em>
+          <strong class="{('green-text' if (edge or 0) >= 0.5 else 'orange-text')}">{ui_short_num(edge,2)}</strong>
+        </div>
+        <div class="pro-cell">
+          <span>Line</span>
+          <b>{ui_short_num(line,1)}</b>
+        </div>
+        <div class="pro-cell">
+          <span>Over Probability</span>
+          <b class="{('green-text' if (prob or 0) >= 0.58 else 'orange-text')}">{ui_short_pct(prob)}</b>
+          <div class="pro-progress"><div style="width:{prob_width:.0f}%"></div></div>
+        </div>
+        <div class="pro-cell">
+          <span>Signal</span>
+          <b class="{sig_class} pro-signal">{sig}</b>
+          <div class="pro-money"><span>Bet Size</span><b>${bet_size:,.2f}</b></div>
+          <div class="pro-money"><span>Kelly %</span><b>{kelly:.2f}%</b></div>
+        </div>
+      </div>
+      <div class="pro-footer">
+        <div><span>K%</span><b>{ui_short_num(k_rate,2)}</b></div>
+        <div><span>Opp K%</span><b>{ui_short_num(opp_k,2)}</b></div>
+        <div><span>Expected BF</span><b>{ui_short_num(bf,1)}</b></div>
+        <div class="pro-last"><span>Last 10 Games (K)</span><div class="pro-bars">{bars}</div></div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_full_pro_board(rows, max_cards=10):
+    rows = rows if isinstance(rows, list) else []
+    valid = [r for r in rows if isinstance(r, dict)]
+    if not valid:
+        st.info("No current board data available yet. Refresh/sync props first.")
+        return
+    ranked = sorted(valid, key=ui_pick_sort_key, reverse=True)
+    for i, row in enumerate(ranked[:max_cards], start=1):
+        render_full_pro_card(row, i)
 
 
 # =========================
@@ -3949,15 +4240,17 @@ except Exception as e:
     st.warning(f"Hit-rate dashboard unavailable: {e}")
 
 
+
+
+
 # =========================
-# v10.8.2 UI REFRESH PREVIEW
+# v10.8.3 FULL PRO UI MAIN SECTION
 # =========================
 try:
-    with st.expander("🎨 New Dashboard UI Preview", expanded=False):
-        st.caption("Visual-only preview using the current board data. This does not change lines, projections, EV, or pick logic.")
-        board_candidates = globals().get("board", globals().get("picks", globals().get("final_board", [])))
-        bankroll_value = globals().get("bankroll", globals().get("BANKROLL", 1000))
-        render_ui_refresh_hero(board_candidates if isinstance(board_candidates, list) else [], bankroll_value)
-        render_ui_refresh_board(board_candidates if isinstance(board_candidates, list) else [], max_cards=8)
+    st.markdown('<div class="section-title-pro">Full Pro Dashboard</div>', unsafe_allow_html=True)
+    pro_rows = get_current_board_rows_for_ui()
+    bankroll_value = globals().get("bankroll", globals().get("BANKROLL", 1000))
+    render_full_pro_header(pro_rows, bankroll_value)
+    render_full_pro_board(pro_rows, max_cards=10)
 except Exception as e:
-    st.warning(f"New dashboard UI preview unavailable: {e}")
+    st.warning(f"Full Pro Dashboard unavailable: {e}")
