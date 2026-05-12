@@ -1,13 +1,13 @@
-# MLB K Prop Engine v10.8.2 UI Refresh
+# MLB K Prop Engine v10.8.3 Full Pro UI
 
-Visual-only UI refresh based on the screenshot style.
+Full sportsbook-style dashboard UI based on the screenshot.
 
 ## Safe
-- Does not modify lines
-- Does not modify projections
-- Does not modify EV/probability/pick logic
+- UI/reporting only
+- Does not change prop lines
+- Does not change projections
+- Does not change EV/probability/pick logic
 - Does not add live pitch-by-pitch
-- Adds a New Dashboard UI Preview expander
 
 ## Keeps
 - Raw Prop Debug Table
@@ -17,3 +17,6 @@ Visual-only UI refresh based on the screenshot style.
 - Statcast
 - CLV / learning
 - Original Underdog line fix
+
+## Deploy
+Upload all files to GitHub and connect to Railway.
